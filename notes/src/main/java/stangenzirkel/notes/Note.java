@@ -32,6 +32,8 @@ public class Note {
     }
 
     public String getBody() {
-        return body;
+        if (body.length() == 0) {
+            return "this note empty";
+        } else return body;
     }
 }
