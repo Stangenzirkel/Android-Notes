@@ -1,6 +1,7 @@
 package stangenzirkel.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +21,8 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
     private String tag = "ShowActivityTag";
     private List<Note> notes;
     private RecyclerView rv;
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,10 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
 
         initializeData();
         // initializeAdapter();
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -99,5 +108,20 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
     private void initializeAdapter(){
         RVAdapter adapter = new RVAdapter(notes, this);
         rv.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_show_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_update) {
+            initializeData();
+            initializeAdapter();
+        }
+        return true;
     }
 }
